@@ -1,0 +1,34 @@
+{
+	"compilerOptions": {
+		"target": "es2016",
+		"lib": ["es5", "es6", "ES2018"],
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"module": "CommonJS",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"allowJs": true,
+		"outDir": "./dist",
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"noImplicitAny": true,
+		"strictPropertyInitialization": false,
+		"baseUrl": ".",
+		"paths": {
+			"@entities/*": ["./src/domain/entities/*"],
+			"@entities": ["./src/domain/entities/index.ts"],
+			"@useCases/*": ["./src/application/useCase/*"],
+			"@ports/*": ["./src/ports/*"],
+			"@controllers/*": ["./src/controllers/*"],
+			"@validation/*": ["./src/application/validation/*"],
+			"@database/*": ["./src/adapter/database/*"],
+			"@http/*": ["./src/adapter/http/*"]
+		}
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "dist"],
+	"ts-node": {
+		"files": true
+	}
+}
