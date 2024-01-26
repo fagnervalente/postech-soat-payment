@@ -1,0 +1,165 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Postech - Payment",
+    "description": "Documentação sobre os endpoints fornecidos pela API."
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Checkout",
+      "description": "Endpoints"
+    },
+    {
+      "name": "Webhook",
+      "description": "Endpoints"
+    },
+    {
+      "name": "HelthCheck",
+      "description": "Endpoints"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "HelthCheck"
+        ],
+        "description": "Endpoint para verificar se a API está ativa.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/checkout": {
+      "post": {
+        "tags": [
+          "Checkout"
+        ],
+        "description": "Endpoint que recebe requisições para criação de pagamentos.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "orderId": {
+                  "example": "any"
+                },
+                "amount": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/webhook/{id}": {
+      "post": {
+        "tags": [
+          "Webhook"
+        ],
+        "description": "Endpoint que recebe as notificações de atualização de status de pagamento.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do pagamento do pedido atualizado",
+            "schema": {
+              "$ref": "#/definitions/HandlePaymentWebhook"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Checkout": {
+      "type": "object",
+      "properties": {
+        "orderId": {
+          "type": "number",
+          "example": 1
+        },
+        "amount": {
+          "type": "number",
+          "example": 30
+        },
+        "description": {
+          "type": "string",
+          "example": "Batata frita"
+        }
+      },
+      "required": [
+        "orderId",
+        "amount"
+      ]
+    },
+    "Webhook": {
+      "type": "object",
+      "properties": {
+        "orderId": {
+          "type": "number",
+          "example": 1
+        },
+        "notification": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 2
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "orderId",
+        "notification"
+      ]
+    }
+  }
+}

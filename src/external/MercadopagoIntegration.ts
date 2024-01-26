@@ -17,7 +17,9 @@ export default class MercadopagoIntegration implements IPaymentAPIIntegration {
 				Authorization: `Bearer ${accessToken}`
 			};
 
-			const response = await fetch(url, { headers });
+			//const response = await fetch(url, { headers });
+			//Mock
+			const response = {ok:true, statusText:"Sucesso", json:()=>({status:'approved'})};
 
 			if (!response.ok) {
 				console.log(`Erro ao consultar pagamento: ${response.statusText}`);
@@ -36,7 +38,7 @@ export default class MercadopagoIntegration implements IPaymentAPIIntegration {
 	async createCheckout(payment: Payment): Promise<string>{
 		//Mock
 		console.log('Criação do qrCode ainda não foi implementada');
-		return 'qrCodeData';
+		return 'mockedQrCodeData';
 	}
 
 }

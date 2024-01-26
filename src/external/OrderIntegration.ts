@@ -13,6 +13,7 @@ export default class OrderIntegration implements IOrderService {
         };
 
         try {
+            /*
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
@@ -20,6 +21,10 @@ export default class OrderIntegration implements IOrderService {
                 },
                 body: JSON.stringify(body)
             });
+            */
+
+            //Mock
+            const response = {ok:true} as fetch.Response;
 
             if (!response.ok) {
                 throw new Error(`Error updating the order status: ${response.status} - ${response.statusText}`);

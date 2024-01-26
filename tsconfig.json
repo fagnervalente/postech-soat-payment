@@ -21,8 +21,8 @@
 			"@useCases/*": ["./src/application/useCase/*"],
 			"@ports/*": ["./src/ports/*"],
 			"@controllers/*": ["./src/controllers/*"],
-			"@validation/*": ["./src/application/validation/*"],
-			"@database/*": ["./src/adapter/database/*"],
+			//"@validation/*": ["./src/application/validation/*"],
+			//"@database/*": ["./src/adapter/database/*"],
 			"@http/*": ["./src/adapter/http/*"]
 		}
 	},

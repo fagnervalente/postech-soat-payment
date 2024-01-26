@@ -26,7 +26,7 @@ export default class PaymentAPIController{
 		// #swagger.description = 'Endpoint que recebe as notificações de atualização de status de pagamento.'
 		const orderId = Number(req.params.id);
 		const webhookNotification = req.body;
-
+		
 		const paymentAPIIntegration = new MercadopagoIntegration();
 		const paymentStatusGateway = new PaymentStatusGatewayWebhookMercadopago(paymentAPIIntegration, webhookNotification);
 		const orderService = new OrderIntegration();

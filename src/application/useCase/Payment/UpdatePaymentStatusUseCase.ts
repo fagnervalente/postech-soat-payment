@@ -11,7 +11,7 @@ export default class UpdatePaymentStatysUseCase extends AbstractUseCase {
 
 	async execute(orderId: number, paymentStatusGateway: IPaymentStatusGateway): Promise<void> {
         const status = await paymentStatusGateway.getStatus();
-
+		console.log({orderId, status});
 		this.validateOrderId(orderId);
         this.validateStatus(status);
 		
