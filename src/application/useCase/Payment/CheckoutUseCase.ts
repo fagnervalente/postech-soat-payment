@@ -19,7 +19,7 @@ export default class CheckoutUseCase extends AbstractUseCase {
 		try{
 			return this.paymentApi.createCheckout(payment);
 		} catch(error){
-			this.setError({message: 'An unexpected error occurred during checkout'});
+			this.setError({message: 'Error connecting to payment platform'});
 			return null;
 		}
 	}
