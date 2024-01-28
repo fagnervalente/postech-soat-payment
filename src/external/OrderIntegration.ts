@@ -6,7 +6,7 @@ const orderServiceEndpoint = process.env.ORDER_SERVICE_ENDPOINT;
 
 export default class OrderIntegration implements IOrderService {
     async updateOrderPaymentStatus(orderId: number, paymentStatus: PaymentStatus): Promise<any> {
-        const url = `${orderServiceEndpoint}/${orderId}`;
+        const url = `${orderServiceEndpoint}/order/paymentStatus/${orderId}`;
 
         const body = {
             status: paymentStatus
@@ -24,7 +24,7 @@ export default class OrderIntegration implements IOrderService {
             */
 
             //Mock
-            const response = {ok:true} as fetch.Response;
+            const response = { ok: true } as fetch.Response;
 
             if (!response.ok) {
                 throw new Error(`Error updating the order status: ${response.status} - ${response.statusText}`);

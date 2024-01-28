@@ -4,7 +4,7 @@ import PaymentAPIController from "@http/controllers/PaymentAPIController";
 
 const paymentRoutes = HttpUtils.asyncRouterHandler(Router());
 
-paymentRoutes.post('/checkout', new PaymentAPIController().checkout);
-paymentRoutes.post('/webhook/:id', new PaymentAPIController().handlePaymentWebhook);
+paymentRoutes.post('/payment/checkout', new PaymentAPIController().checkout);
+paymentRoutes.post('/payment/webhook/:id', new PaymentAPIController().handlePaymentWebhook);
 
 export default paymentRoutes;
