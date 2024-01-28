@@ -1,0 +1,16 @@
+version: "3.4"
+
+services:
+  order-api:
+    container_name: self-service-payment-api
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+    volumes:
+      - .:/usr/app
+    environment:
+      - SERVER_PORT=${SERVER_PORT}
+      - MERCADOPAGO_ACCESS_TOKEN=${MERCADOPAGO_ACCESS_TOKEN}
+      - ORDER_SERVICE_ENDPOINT=${ORDER_SERVICE_ENDPOINT}
