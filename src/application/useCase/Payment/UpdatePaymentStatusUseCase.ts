@@ -1,6 +1,7 @@
 import AbstractUseCase from "../AbstractUseCase";
 import IOrderService from "@ports/OrderService/IOrderService";
 import { IPaymentStatusGateway, PaymentStatus } from "@ports/gateway/IPaymentStatusGateway";
+import InternalServerError from "src/domain/error/InternalServerError";
 
 export default class UpdatePaymentStatysUseCase extends AbstractUseCase {
 
@@ -10,25 +11,25 @@ export default class UpdatePaymentStatysUseCase extends AbstractUseCase {
 	}
 
 	async execute(orderId: number, paymentStatusGateway: IPaymentStatusGateway): Promise<void> {
-        const status = await paymentStatusGateway.getStatus();
-		
 		this.validateOrderId(orderId);
-        this.validateStatus(status);
-		
 		if (this.hasErrors()) return;
 
+		let status;
 		try{
-			this.orderService.updateOrderPaymentStatus(orderId, status as PaymentStatus);
+        	status = await paymentStatusGateway.getStatus();
+		} catch (error){
+			this.setError(InternalServerError.create({message: 'Error getting payment status from platform'}));
+			return;
+		}
+
+		try{
+			await this.orderService.updateOrderPaymentStatus(orderId, status as PaymentStatus);
 		} catch(error){
-			this.setError({message: 'An unexpected error occurred during status update'});
+			this.setError(InternalServerError.create({message: 'Cannot update order service'}));
 		}
 	}
 
 	private validateOrderId(orderId: number){
 		if( !(orderId > 0) ) this.setError({message: 'Invalid order id'});
-	}
-
-	private async validateStatus(status: PaymentStatus | null) {
-		if (status === null) this.setError({ message: "Invalid payment status" });
 	}
 }

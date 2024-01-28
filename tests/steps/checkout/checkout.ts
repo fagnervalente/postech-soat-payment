@@ -17,6 +17,7 @@ When('uma requisição de checkout é recebida com orderId e amount válidos', a
 
 Then('os dados do qr code de pagamento são retornados', function () {
     assert.strictEqual(typeof qrCode, 'string');
+    assert.strictEqual((qrCode || '').length > 0, true);
 });
 
 
@@ -33,15 +34,15 @@ When('uma requisição de checkout é recebida sem o parâmetro amount ou ele é
 });
 
 When('uma requisição de checkout é recebida', function () {
-    mockPayment = new Payment(1, -1, 'Batata frita');
+    mockPayment = new Payment(1, 2, 'Batata frita');
 });
        
-When('a comunicação com a plataforma de pagamentos resulta em erro', async function () {
+When('ocorre um erro ao solicitar criação à plataforma de pagamentos', async function () {
     createCheckout = new CheckoutUseCase(new MockedFaltyPaymentAPI());
     qrCode = await createCheckout.execute(mockPayment);
 });
 
-Then('deve ocorrer um erro com a mensagem {string}', function (string) {
+Then('o checkout resulta em um erro com a mensagem {string}', function (string) {
     assert.strictEqual(createCheckout.hasErrors(), true);
     assert.deepStrictEqual(createCheckout.getErrors()[0].message, string);
 });

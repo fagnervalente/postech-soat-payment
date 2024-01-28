@@ -1,6 +1,5 @@
 import IError from "../../domain/error/IError";
 import ValidationError from "../../domain/error/ValidationError";
-import { ValidateFunction } from "ajv";
 
 export default class AbstractUseCase {
 	private errors: IError[] = [];
@@ -38,13 +37,5 @@ export default class AbstractUseCase {
 		this.clearErrors();
 
 		return errors;
-	}
-
-	public validateSchema(validate: ValidateFunction, entity: any) {
-		if (!validate(entity)) {
-			const errors = validate.errors;
-			const errorList: IError[] | void[] | undefined = errors?.map(err => <IError>{ type: "ValidationError", message: err.message });
-			this.setErrors(errorList);
-		}
 	}
 }

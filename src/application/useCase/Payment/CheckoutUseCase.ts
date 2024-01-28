@@ -1,6 +1,7 @@
 import IPaymentAPIIntegration from "@ports/PaymentAPI/IPaymentAPIIntegration";
 import AbstractUseCase from "../AbstractUseCase";
 import Payment from "@entities/Payment";
+import InternalServerError from "src/domain/error/InternalServerError";
 
 export default class CheckoutUseCase extends AbstractUseCase {
 	private paymentApi: IPaymentAPIIntegration;
@@ -19,7 +20,7 @@ export default class CheckoutUseCase extends AbstractUseCase {
 		try{
 			return this.paymentApi.createCheckout(payment);
 		} catch(error){
-			this.setError({message: 'Error connecting to payment platform'});
+			this.setError(InternalServerError.create({message: 'Error connecting to payment platform'}));
 			return null;
 		}
 	}
