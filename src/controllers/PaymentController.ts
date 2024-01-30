@@ -1,7 +1,7 @@
 import UpdatePaymentStatusUseCase from "../application/useCase/Payment/UpdatePaymentStatusUseCase";
 import IPaymentAPIIntegration from "@ports/PaymentAPI/IPaymentAPIIntegration";
 import Payment from "@entities/Payment";
-import CheckoutUseCase from "@useCases/Payment/CheckoutUseCase";
+import CheckoutUseCase from "../application/useCase/Payment/CheckoutUseCase";
 import { IPaymentStatusGateway } from "@ports/gateway/IPaymentStatusGateway";
 import IOrderService from "@ports/OrderService/IOrderService";
 

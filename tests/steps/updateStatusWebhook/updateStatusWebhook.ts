@@ -1,9 +1,9 @@
 import { When, Then } from "@cucumber/cucumber";
 import assert from "assert";
 import MockedPaymentAPI from "../../utils/MockedPaymentAPI";
-import MockedFaltyPaymentAPI from "../../utils/MockedFaltyPaymentAPI";
+import MockedFaultyPaymentAPI from "../../utils/MockedFaultyPaymentApi";
 import MockedOrderService from "../../utils/MockedOrderService";
-import MockedFaltyOrderService from "../../utils/MockedFaltyOrderService";
+import MockedFaltyOrderService from "../../utils/MockedFaultyOrderService";
 import MockedPaymentStatusGateway from "../../utils/MockedPaymentStatusGateway";
 import UpdatePaymentStatusUseCase  from "../../../src/application/useCase/Payment/UpdatePaymentStatusUseCase";
 import { IPaymentStatusGateway } from "../../../src/ports/gateway/IPaymentStatusGateway";
@@ -38,7 +38,7 @@ When('uma requisição é recebida pelo webhook sem o parâmetro orderId ou ele 
 });
 
 When('ocorre um erro ao solicitar status à plataforma de pagamentos', function () {
-    paymentStatusGateway = new MockedPaymentStatusGateway(new MockedFaltyPaymentAPI(), mockNotification);
+    paymentStatusGateway = new MockedPaymentStatusGateway(new MockedFaultyPaymentAPI(), mockNotification);
     updateStatusUseCase = new UpdatePaymentStatusUseCase(new MockedOrderService());
     updateStatusUseCase.execute(mockOrderId, paymentStatusGateway);
 });

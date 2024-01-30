@@ -3,7 +3,7 @@ import assert from "assert";
 import Payment from "../../../src/domain/entities/Payment";
 import CheckoutUseCase from "../../../src/application/useCase/Payment/CheckoutUseCase";
 import MockedPaymentAPI from "../../utils/MockedPaymentAPI";
-import MockedFaltyPaymentAPI from "../../utils/MockedFaltyPaymentAPI";
+import MockedFaultyPaymentAPI from "../../utils/MockedFaultyPaymentApi";
 
 let createCheckout:CheckoutUseCase;
 let mockPayment:Payment;
@@ -38,7 +38,7 @@ When('uma requisição de checkout é recebida', function () {
 });
        
 When('ocorre um erro ao solicitar criação à plataforma de pagamentos', async function () {
-    createCheckout = new CheckoutUseCase(new MockedFaltyPaymentAPI());
+    createCheckout = new CheckoutUseCase(new MockedFaultyPaymentAPI());
     qrCode = await createCheckout.execute(mockPayment);
 });
 

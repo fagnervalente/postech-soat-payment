@@ -3,7 +3,7 @@ import IOrderService from "@ports/OrderService/IOrderService";
 import { IPaymentStatusGateway, PaymentStatus } from "@ports/gateway/IPaymentStatusGateway";
 import InternalServerError from "src/domain/error/InternalServerError";
 
-export default class UpdatePaymentStatysUseCase extends AbstractUseCase {
+export default class UpdatePaymentStatusUseCase extends AbstractUseCase {
 
 	constructor(readonly orderService: IOrderService) {
 		super();
@@ -23,7 +23,7 @@ export default class UpdatePaymentStatysUseCase extends AbstractUseCase {
 		}
 
 		try{
-			await this.orderService.updateOrderPaymentStatus(orderId, status as PaymentStatus);
+			const _ = await this.orderService.updateOrderPaymentStatus(orderId, status as PaymentStatus);
 		} catch(error){
 			this.setError(InternalServerError.create({message: 'Cannot update order service'}));
 		}

@@ -2,6 +2,8 @@ import PaymentAPIIntegration from "../../src/ports/PaymentAPI/IPaymentAPIIntegra
 import { IPaymentStatusGateway, PaymentStatus } from "../../src/ports/gateway/IPaymentStatusGateway";
 
 export default class PaymentStatusGatewayWebhookMercadopago implements IPaymentStatusGateway{
+    static mockWebhookNotification = {data:{id:1}};
+
     private _paymentAPIIntegration: PaymentAPIIntegration;
     private _webhookNotification: any;
 
