@@ -1,33 +1,18 @@
-import fetch from "node-fetch";
 import IOrderService from "@ports/OrderService/IOrderService";
 import { PaymentStatus } from "@ports/gateway/IPaymentStatusGateway";
+import got from "got";
 
-const orderServiceEndpoint = process.env.ORDER_SERVICE_ENDPOINT;
+const processServiceEndpoint = process.env.PROCESS_SERVICE_ENDPOINT;
 
 export default class OrderIntegration implements IOrderService {
     async updateOrderPaymentStatus(orderId: number, paymentStatus: PaymentStatus): Promise<any> {
-        const url = `${orderServiceEndpoint}/order/paymentStatus/${orderId}`;
-
-        const body = {
-            status: paymentStatus
-        };
+        const url = `${processServiceEndpoint}/add/${orderId}`;
 
         try {
-            /*
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(body)
-            });
-            */
+            const response = await got.post(url, { json: { status: paymentStatus } })
 
-            //Mock
-            const response = { ok: true } as fetch.Response;
-
-            if (!response.ok) {
-                throw new Error(`Error updating the order status: ${response.status} - ${response.statusText}`);
+            if (response.statusCode !== 200) {
+                throw new Error(`Error updating the order status: ${response.statusCode} - ${response.body}`);
             }
 
             console.log('Status do pedido atualizado com sucesso!');
