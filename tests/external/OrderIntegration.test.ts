@@ -23,7 +23,7 @@ describe('OrderIntegration', () => {
     test('Properly update status', async () => {
         const orderId = 1;
         const paymentStatus: PaymentStatus = PaymentStatus.APROVADO;
-        const expectedUrl = `${process.env.ORDER_SERVICE_ENDPOINT}/order/paymentStatus/${orderId}`;
+        const expectedUrl = `${process.env.PROCESS_SERVICE_ENDPOINT}/add/${orderId}`;
         const expectedBody = {
             status: paymentStatus
         };
