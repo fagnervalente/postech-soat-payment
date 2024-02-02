@@ -1,4 +1,3 @@
-import fetch from "node-fetch";
 import IOrderService from "@ports/OrderService/IOrderService";
 import { PaymentStatus } from "@ports/gateway/IPaymentStatusGateway";
 
@@ -13,7 +12,6 @@ export default class OrderIntegration implements IOrderService {
         };
 
         try {
-            /*
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
@@ -21,16 +19,10 @@ export default class OrderIntegration implements IOrderService {
                 },
                 body: JSON.stringify(body)
             });
-            */
-
-            //Mock
-            const response = { ok: true } as fetch.Response;
-
+            
             if (!response.ok) {
                 throw new Error(`Error updating the order status: ${response.status} - ${response.statusText}`);
             }
-
-            console.log('Status do pedido atualizado com sucesso!');
 
         } catch (error) {
             throw new Error('Error making the request: ' + (error as Error).message);
