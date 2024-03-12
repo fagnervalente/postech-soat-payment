@@ -17,6 +17,8 @@ export default class CheckoutUseCase extends AbstractUseCase {
 		
 		if(this.hasErrors()) return null;
 
+		console.log("Calling Checkout for order: " + payment.orderId);
+
 		try{
 			return this.paymentApi.createCheckout(payment);
 		} catch(error){
