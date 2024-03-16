@@ -13,8 +13,11 @@ async function receiveOrder(msg: amqp.ConsumeMessage | null) {
     if (msg !== null) {
         try {
             const paymentAPIIntegration = new MercadopagoIntegration();
-            const messageObj = JSON.parse(msg.content.toString());
+            const messageString = msg.content.toString('utf-8');
+            console.log("messageString", messageString);
+            const messageObj = JSON.parse(messageString);
             console.log("Queue - Message received", messageObj);
+            console.log(messageObj.orderId, messageObj.amount, messageObj.description);
             const result = await PaymentController.checkout(messageObj.orderId, messageObj.amount, messageObj.description, paymentAPIIntegration);
         } catch (e) {
             console.error(e);
