@@ -11,13 +11,13 @@ export default class UpdatePaymentStatusUseCase extends AbstractUseCase {
 		this.orderService = orderService;
 	}
 
-	async execute(orderId: number, paymentStatusGateway: IPaymentStatusGateway, paymentQueueOUT: IPaymentQueueOUT): Promise<void> {
+	async execute(orderId: string, paymentStatusGateway: IPaymentStatusGateway, paymentQueueOUT: IPaymentQueueOUT): Promise<void> {
 		this.validateOrderId(orderId);
 		if (this.hasErrors()) return;
 
 		let status;
 		try{
-        	status = await paymentStatusGateway.getStatus() as PaymentStatus;
+        	status = PaymentStatus.APROVADO; //mocked // await paymentStatusGateway.getStatus() as PaymentStatus;
 		} catch (error){
 			this.setError(InternalServerError.create({message: 'Error getting payment status from platform'}));
 			return;
@@ -30,11 +30,12 @@ export default class UpdatePaymentStatusUseCase extends AbstractUseCase {
 				paymentQueueOUT.publishOnCanceled({ orderId });
 			}
 		} catch(error) {
+			console.error(error);
 			this.setError(InternalServerError.create({message: 'Cannot post payment status on the queue'}));
 		}
 	}
 
-	private validateOrderId(orderId: number){
-		if( !(orderId > 0) ) this.setError({message: 'Invalid order id'});
+	private validateOrderId(orderId: string){
+		if( !orderId ) this.setError({message: 'Invalid order id'});
 	}
 }
