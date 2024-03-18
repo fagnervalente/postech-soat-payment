@@ -1,4 +1,4 @@
 export default interface IPaymentQueueOUT {
-    publishOnConfirmed(message: Object): boolean;
-    publishOnCanceled(message: Object): boolean;
+    publishStatus(message: Object): boolean;
+    publishApproved(message: Object): boolean;
 }

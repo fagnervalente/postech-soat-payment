@@ -24,11 +24,11 @@ export default class UpdatePaymentStatusUseCase extends AbstractUseCase {
 		}
 
 		try {
+			paymentQueueOUT.publishStatus({ orderId, status });
 			if (status == PaymentStatus.APROVADO) {
-				paymentQueueOUT.publishOnConfirmed({ orderId });
-			} else if (status === PaymentStatus.RECUSADO) {
-				paymentQueueOUT.publishOnCanceled({ orderId });
+				paymentQueueOUT.publishApproved({ orderId });
 			}
+
 		} catch(error) {
 			console.error(error);
 			this.setError(InternalServerError.create({message: 'Cannot post payment status on the queue'}));
