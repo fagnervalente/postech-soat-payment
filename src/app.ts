@@ -2,16 +2,17 @@ import "reflect-metadata";
 import express from 'express';
 import * as core from 'express-serve-static-core';
 import HttpAdapter from './adapter/http/HttpAdapter';
-
+import Messaging from './adapter/messaging/messaging';
 
 export default class App {
 	private server: core.Express = express();
 
 	public async initializeAdapters(): Promise<void> {
 		try {
+			await this.initDrivenAdapters();
 			await this.initDriverAdapters();
 		} catch (error) {
-			console.log('Error initializing adapters:', error);
+			console.error('Error initializing adapters:', error);
 		}
 	}
 
@@ -21,5 +22,9 @@ export default class App {
 
 	private initDriverAdapters(): void {
 		new HttpAdapter(this.server).initialize();
+	}
+
+	private async initDrivenAdapters(): Promise<void> {
+		await Messaging.connect();
 	}
 }

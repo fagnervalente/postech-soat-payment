@@ -1,4 +1,4 @@
-export type errorType = 'ValidationError' | 'InternalServerError';
+export type errorType = 'ValidationError' | 'InternalServerError' | 'ConnectionError';
 
 export default interface IError {
 	type?: errorType,

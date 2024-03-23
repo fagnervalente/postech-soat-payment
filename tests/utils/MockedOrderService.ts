@@ -5,7 +5,7 @@ import { PaymentStatus } from "../../src/ports/gateway/IPaymentStatusGateway";
 const orderServiceEndpoint = process.env.ORDER_SERVICE_ENDPOINT;
 
 export default class MockedOrderService implements IOrderService {
-    async updateOrderPaymentStatus(orderId: number, paymentStatus: PaymentStatus): Promise<any> {
+    async updateOrderPaymentStatus(orderId: string, paymentStatus: PaymentStatus): Promise<any> {
         return new Promise((resolve)=>resolve({}));
     }
 }

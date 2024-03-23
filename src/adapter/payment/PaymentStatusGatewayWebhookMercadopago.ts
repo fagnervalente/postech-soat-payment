@@ -24,7 +24,6 @@ export default class PaymentStatusGatewayWebhookMercadopago implements IPaymentS
 
     async getStatus(): Promise<PaymentStatus | null> {
         const paymentData = await this._paymentAPIIntegration.getPaymentFromWebhookNotification(this._webhookNotification);
-        console.log({paymentData, notification: this._webhookNotification});
         switch(paymentData.status){
             case StatusMercadopago.PENDING:
             case StatusMercadopago.AUTHORIZED:

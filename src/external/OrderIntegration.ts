@@ -4,7 +4,7 @@ import { PaymentStatus } from "@ports/gateway/IPaymentStatusGateway";
 const processServiceEndpoint = process.env.PROCESS_SERVICE_ENDPOINT;
 
 export default class OrderIntegration implements IOrderService {
-    async updateOrderPaymentStatus(orderId: number, paymentStatus: PaymentStatus): Promise<any> {
+    async updateOrderPaymentStatus(orderId: string, paymentStatus: PaymentStatus): Promise<any> {
         const url = `${processServiceEndpoint}/add/${orderId}`;
         
         const body = {

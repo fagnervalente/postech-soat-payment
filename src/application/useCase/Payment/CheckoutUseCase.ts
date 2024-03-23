@@ -25,8 +25,8 @@ export default class CheckoutUseCase extends AbstractUseCase {
 		}
 	}
 
-	private validateOrderId(orderId: number){
-		if( !(orderId > 0) ) this.setError({message: 'Invalid order id'});
+	private validateOrderId(orderId: string){
+		if( !orderId ) this.setError({message: 'Invalid order id'});
 	}
 
 	private validateAmount(amount: number){

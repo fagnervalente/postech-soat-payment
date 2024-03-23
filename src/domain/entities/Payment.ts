@@ -1,9 +1,9 @@
 export default class Payment {
-    readonly orderId: number;
+    readonly orderId: string;
 	readonly amount: number;
 	readonly description: string;
 
-	constructor(orderId:number, amount: number, description: string) {
+	constructor(orderId: string, amount: number, description: string) {
         this.orderId = orderId;
 		this.amount = amount;
 		this.description = description;

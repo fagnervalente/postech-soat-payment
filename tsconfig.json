@@ -20,6 +20,7 @@
 			"@entities": ["./src/domain/entities/index.ts"],
 			"@useCases/*": ["./src/application/useCase/*"],
 			"@ports/*": ["./src/ports/*"],
+			"@error/*": ["./src/domain/error/*"],
 			"@controllers/*": ["./src/controllers/*"],
 			"@http/*": ["./src/adapter/http/*"]
 		}

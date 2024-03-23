@@ -5,7 +5,7 @@ import { PaymentStatus } from "../../src/ports/gateway/IPaymentStatusGateway";
 const orderServiceEndpoint = process.env.ORDER_SERVICE_ENDPOINT;
 
 export default class MockedFaultyOrderService implements IOrderService {
-    updateOrderPaymentStatus(orderId: number, paymentStatus: PaymentStatus): Promise<any> {
+    updateOrderPaymentStatus(orderId: string, paymentStatus: PaymentStatus): Promise<any> {
         throw new Error('Error while updating order status');
     }
 }
