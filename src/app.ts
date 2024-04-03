@@ -11,6 +11,7 @@ export default class App {
 		try {
 			await this.initDrivenAdapters();
 			await this.initDriverAdapters();
+			this.server.disable('x-powered-by');
 		} catch (error) {
 			console.error('Error initializing adapters:', error);
 		}

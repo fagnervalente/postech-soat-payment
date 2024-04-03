@@ -1,6 +1,18 @@
 version: "3.4"
 
 services:
+  rabbitMQ:
+    container_name: rabbitMQ
+    image: rabbitmq:3.13-management
+    restart: always
+    ports:
+      - "${RABBITMQ_PORT}:${RABBITMQ_PORT}"
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+    volumes:
+      - "./.rabbitmq_data:/var/lib/rabbitmq/mnesia"
   order-api:
     container_name: self-service-payment-api
     build:
@@ -12,5 +24,12 @@ services:
       - .:/usr/app
     environment:
       - SERVER_PORT=${SERVER_PORT}
+      - RABBITMQ_HOST=${RABBITMQ_HOST}
+      - RABBITMQ_USER=${RABBITMQ_USER}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+      - RABBITMQ_PORT=${RABBITMQ_PORT}
       - MERCADOPAGO_ACCESS_TOKEN=${MERCADOPAGO_ACCESS_TOKEN}
       - PROCESS_SERVICE_ENDPOINT=${PROCESS_SERVICE_ENDPOINT}
+    depends_on:
+      rabbitMQ:
+        condition: service_healthy
